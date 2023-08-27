@@ -1,0 +1,492 @@
+ProjectName            :=A3P3
+IntermediateDirectory  :=./obj
+OutDir                 :=./bin
+LinkerName             :=gcc
+ArchiveTool            :=ar rcus
+SharedObjectLinkerName :=gcc -shared -fPIC
+ObjectSuffix           :=.o
+DependSuffix           :=.o.d
+PreprocessSuffix       :=.o.i
+DebugSwitch            :=-g
+IncludeSwitch          :=-I
+LibrarySwitch          :=-l
+OutputSwitch           :=-o
+LibraryPathSwitch      :=-L
+PreprocessorSwitch     :=-D
+SourceSwitch           :=-c
+CompilerName           :=gcc
+C_CompilerName         :=gcc
+OutputFile             :=$(OutDir)/$(ProjectName)
+Preprocessors          :=
+ObjectSwitch           :=-o
+ArchiveOutputSwitch    :=
+PreprocessOnlySwitch   :=-E
+ObjectsFileList        :=./$(ProjectName).txt
+PCHCompileFlags        :=
+MakeDirCommand         :=mkdir -p
+CmpOptions             := -O2 -Wall $(Preprocessors)
+C_CmpOptions           := -O2 -Wall -std=c99 $(Preprocessors)
+LinkOptions            :=  -s
+IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch). $(IncludeSwitch)./src/lib
+IncludePCH             :=
+RcIncludePath          :=
+Libs                   := $(LibrarySwitch)m $(LibrarySwitch)GL $(LibrarySwitch)glut $(LibrarySwitch)pthread
+LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)./src/lib/GL
+
+
+Objects=$(IntermediateDirectory)/libpng_png$(ObjectSuffix) $(IntermediateDirectory)/libpng_pngerror$(ObjectSuffix) $(IntermediateDirectory)/libpng_pngget$(ObjectSuffix) $(IntermediateDirectory)/libpng_pngmem$(ObjectSuffix) $(IntermediateDirectory)/libpng_pngpread$(ObjectSuffix) $(IntermediateDirectory)/libpng_pngread$(ObjectSuffix) $(IntermediateDirectory)/libpng_pngrio$(ObjectSuffix) $(IntermediateDirectory)/libpng_pngrtran$(ObjectSuffix) $(IntermediateDirectory)/libpng_pngrutil$(ObjectSuffix) $(IntermediateDirectory)/libpng_pngset$(ObjectSuffix) \
+	$(IntermediateDirectory)/libpng_pngtrans$(ObjectSuffix) $(IntermediateDirectory)/libpng_pngwio$(ObjectSuffix) $(IntermediateDirectory)/libpng_pngwrite$(ObjectSuffix) $(IntermediateDirectory)/libpng_pngwtran$(ObjectSuffix) $(IntermediateDirectory)/libpng_pngwutil$(ObjectSuffix) $(IntermediateDirectory)/thr_pool_thr_pool$(ObjectSuffix) $(IntermediateDirectory)/zlib_adler32$(ObjectSuffix) $(IntermediateDirectory)/zlib_compress$(ObjectSuffix) $(IntermediateDirectory)/zlib_crc32$(ObjectSuffix) $(IntermediateDirectory)/zlib_deflate$(ObjectSuffix) \
+	$(IntermediateDirectory)/zlib_gzclose$(ObjectSuffix) $(IntermediateDirectory)/zlib_gzlib$(ObjectSuffix) $(IntermediateDirectory)/zlib_gzread$(ObjectSuffix) $(IntermediateDirectory)/zlib_gzwrite$(ObjectSuffix) $(IntermediateDirectory)/zlib_infback$(ObjectSuffix) $(IntermediateDirectory)/zlib_inffast$(ObjectSuffix) $(IntermediateDirectory)/zlib_inflate$(ObjectSuffix) $(IntermediateDirectory)/zlib_inftrees$(ObjectSuffix) $(IntermediateDirectory)/zlib_trees$(ObjectSuffix) $(IntermediateDirectory)/zlib_uncompr$(ObjectSuffix) \
+	$(IntermediateDirectory)/zlib_zutil$(ObjectSuffix) $(IntermediateDirectory)/lib_my_rand$(ObjectSuffix) $(IntermediateDirectory)/lib_png_writer$(ObjectSuffix) $(IntermediateDirectory)/A3P3_3d_position$(ObjectSuffix) $(IntermediateDirectory)/A3P3_3d_visual$(ObjectSuffix) $(IntermediateDirectory)/A3P3_A3P3_main$(ObjectSuffix) $(IntermediateDirectory)/A3P3_octree$(ObjectSuffix) $(IntermediateDirectory)/A3P3_3d_motion$(ObjectSuffix)
+
+##
+## Main Build Targets
+##
+.PHONY: all clean PreBuild PrePreBuild PostBuild
+all: $(OutputFile)
+
+$(OutputFile): $(IntermediateDirectory)/.d $(Objects)
+	@$(MakeDirCommand) $(@D)
+	@echo "" > $(IntermediateDirectory)/.d
+	@echo $(Objects) > $(ObjectsFileList)
+	@$(MakeDirCommand) $(OutDir)
+	$(LinkerName) $(OutputSwitch)$(OutputFile) @$(ObjectsFileList) $(LibPath) $(Libs) $(LinkOptions)
+
+$(IntermediateDirectory)/.d:
+	@$(MakeDirCommand) $(IntermediateDirectory)
+
+PreBuild:
+
+
+##
+## Objects
+##
+$(IntermediateDirectory)/libpng_png$(ObjectSuffix): src/lib/libpng/png.c $(IntermediateDirectory)/libpng_png$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/libpng/png.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/libpng_png$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/libpng_png$(DependSuffix): src/lib/libpng/png.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libpng_png$(ObjectSuffix) -MF$(IntermediateDirectory)/libpng_png$(DependSuffix) -MM "./src/lib/libpng/png.c"
+
+$(IntermediateDirectory)/libpng_png$(PreprocessSuffix): src/lib/libpng/png.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libpng_png$(PreprocessSuffix) "./src/lib/libpng/png.c"
+
+$(IntermediateDirectory)/libpng_pngerror$(ObjectSuffix): src/lib/libpng/pngerror.c $(IntermediateDirectory)/libpng_pngerror$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/libpng/pngerror.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/libpng_pngerror$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/libpng_pngerror$(DependSuffix): src/lib/libpng/pngerror.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libpng_pngerror$(ObjectSuffix) -MF$(IntermediateDirectory)/libpng_pngerror$(DependSuffix) -MM "./src/lib/libpng/pngerror.c"
+
+$(IntermediateDirectory)/libpng_pngerror$(PreprocessSuffix): src/lib/libpng/pngerror.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libpng_pngerror$(PreprocessSuffix) "./src/lib/libpng/pngerror.c"
+
+$(IntermediateDirectory)/libpng_pngget$(ObjectSuffix): src/lib/libpng/pngget.c $(IntermediateDirectory)/libpng_pngget$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/libpng/pngget.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/libpng_pngget$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/libpng_pngget$(DependSuffix): src/lib/libpng/pngget.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libpng_pngget$(ObjectSuffix) -MF$(IntermediateDirectory)/libpng_pngget$(DependSuffix) -MM "./src/lib/libpng/pngget.c"
+
+$(IntermediateDirectory)/libpng_pngget$(PreprocessSuffix): src/lib/libpng/pngget.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libpng_pngget$(PreprocessSuffix) "./src/lib/libpng/pngget.c"
+
+$(IntermediateDirectory)/libpng_pngmem$(ObjectSuffix): src/lib/libpng/pngmem.c $(IntermediateDirectory)/libpng_pngmem$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/libpng/pngmem.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/libpng_pngmem$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/libpng_pngmem$(DependSuffix): src/lib/libpng/pngmem.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libpng_pngmem$(ObjectSuffix) -MF$(IntermediateDirectory)/libpng_pngmem$(DependSuffix) -MM "./src/lib/libpng/pngmem.c"
+
+$(IntermediateDirectory)/libpng_pngmem$(PreprocessSuffix): src/lib/libpng/pngmem.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libpng_pngmem$(PreprocessSuffix) "./src/lib/libpng/pngmem.c"
+
+$(IntermediateDirectory)/libpng_pngpread$(ObjectSuffix): src/lib/libpng/pngpread.c $(IntermediateDirectory)/libpng_pngpread$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/libpng/pngpread.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/libpng_pngpread$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/libpng_pngpread$(DependSuffix): src/lib/libpng/pngpread.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libpng_pngpread$(ObjectSuffix) -MF$(IntermediateDirectory)/libpng_pngpread$(DependSuffix) -MM "./src/lib/libpng/pngpread.c"
+
+$(IntermediateDirectory)/libpng_pngpread$(PreprocessSuffix): src/lib/libpng/pngpread.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libpng_pngpread$(PreprocessSuffix) "./src/lib/libpng/pngpread.c"
+
+$(IntermediateDirectory)/libpng_pngread$(ObjectSuffix): src/lib/libpng/pngread.c $(IntermediateDirectory)/libpng_pngread$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/libpng/pngread.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/libpng_pngread$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/libpng_pngread$(DependSuffix): src/lib/libpng/pngread.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libpng_pngread$(ObjectSuffix) -MF$(IntermediateDirectory)/libpng_pngread$(DependSuffix) -MM "./src/lib/libpng/pngread.c"
+
+$(IntermediateDirectory)/libpng_pngread$(PreprocessSuffix): src/lib/libpng/pngread.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libpng_pngread$(PreprocessSuffix) "./src/lib/libpng/pngread.c"
+
+$(IntermediateDirectory)/libpng_pngrio$(ObjectSuffix): src/lib/libpng/pngrio.c $(IntermediateDirectory)/libpng_pngrio$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/libpng/pngrio.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/libpng_pngrio$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/libpng_pngrio$(DependSuffix): src/lib/libpng/pngrio.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libpng_pngrio$(ObjectSuffix) -MF$(IntermediateDirectory)/libpng_pngrio$(DependSuffix) -MM "./src/lib/libpng/pngrio.c"
+
+$(IntermediateDirectory)/libpng_pngrio$(PreprocessSuffix): src/lib/libpng/pngrio.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libpng_pngrio$(PreprocessSuffix) "./src/lib/libpng/pngrio.c"
+
+$(IntermediateDirectory)/libpng_pngrtran$(ObjectSuffix): src/lib/libpng/pngrtran.c $(IntermediateDirectory)/libpng_pngrtran$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/libpng/pngrtran.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/libpng_pngrtran$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/libpng_pngrtran$(DependSuffix): src/lib/libpng/pngrtran.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libpng_pngrtran$(ObjectSuffix) -MF$(IntermediateDirectory)/libpng_pngrtran$(DependSuffix) -MM "./src/lib/libpng/pngrtran.c"
+
+$(IntermediateDirectory)/libpng_pngrtran$(PreprocessSuffix): src/lib/libpng/pngrtran.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libpng_pngrtran$(PreprocessSuffix) "./src/lib/libpng/pngrtran.c"
+
+$(IntermediateDirectory)/libpng_pngrutil$(ObjectSuffix): src/lib/libpng/pngrutil.c $(IntermediateDirectory)/libpng_pngrutil$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/libpng/pngrutil.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/libpng_pngrutil$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/libpng_pngrutil$(DependSuffix): src/lib/libpng/pngrutil.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libpng_pngrutil$(ObjectSuffix) -MF$(IntermediateDirectory)/libpng_pngrutil$(DependSuffix) -MM "./src/lib/libpng/pngrutil.c"
+
+$(IntermediateDirectory)/libpng_pngrutil$(PreprocessSuffix): src/lib/libpng/pngrutil.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libpng_pngrutil$(PreprocessSuffix) "./src/lib/libpng/pngrutil.c"
+
+$(IntermediateDirectory)/libpng_pngset$(ObjectSuffix): src/lib/libpng/pngset.c $(IntermediateDirectory)/libpng_pngset$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/libpng/pngset.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/libpng_pngset$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/libpng_pngset$(DependSuffix): src/lib/libpng/pngset.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libpng_pngset$(ObjectSuffix) -MF$(IntermediateDirectory)/libpng_pngset$(DependSuffix) -MM "./src/lib/libpng/pngset.c"
+
+$(IntermediateDirectory)/libpng_pngset$(PreprocessSuffix): src/lib/libpng/pngset.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libpng_pngset$(PreprocessSuffix) "./src/lib/libpng/pngset.c"
+
+$(IntermediateDirectory)/libpng_pngtrans$(ObjectSuffix): src/lib/libpng/pngtrans.c $(IntermediateDirectory)/libpng_pngtrans$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/libpng/pngtrans.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/libpng_pngtrans$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/libpng_pngtrans$(DependSuffix): src/lib/libpng/pngtrans.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libpng_pngtrans$(ObjectSuffix) -MF$(IntermediateDirectory)/libpng_pngtrans$(DependSuffix) -MM "./src/lib/libpng/pngtrans.c"
+
+$(IntermediateDirectory)/libpng_pngtrans$(PreprocessSuffix): src/lib/libpng/pngtrans.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libpng_pngtrans$(PreprocessSuffix) "./src/lib/libpng/pngtrans.c"
+
+$(IntermediateDirectory)/libpng_pngwio$(ObjectSuffix): src/lib/libpng/pngwio.c $(IntermediateDirectory)/libpng_pngwio$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/libpng/pngwio.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/libpng_pngwio$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/libpng_pngwio$(DependSuffix): src/lib/libpng/pngwio.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libpng_pngwio$(ObjectSuffix) -MF$(IntermediateDirectory)/libpng_pngwio$(DependSuffix) -MM "./src/lib/libpng/pngwio.c"
+
+$(IntermediateDirectory)/libpng_pngwio$(PreprocessSuffix): src/lib/libpng/pngwio.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libpng_pngwio$(PreprocessSuffix) "./src/lib/libpng/pngwio.c"
+
+$(IntermediateDirectory)/libpng_pngwrite$(ObjectSuffix): src/lib/libpng/pngwrite.c $(IntermediateDirectory)/libpng_pngwrite$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/libpng/pngwrite.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/libpng_pngwrite$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/libpng_pngwrite$(DependSuffix): src/lib/libpng/pngwrite.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libpng_pngwrite$(ObjectSuffix) -MF$(IntermediateDirectory)/libpng_pngwrite$(DependSuffix) -MM "./src/lib/libpng/pngwrite.c"
+
+$(IntermediateDirectory)/libpng_pngwrite$(PreprocessSuffix): src/lib/libpng/pngwrite.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libpng_pngwrite$(PreprocessSuffix) "./src/lib/libpng/pngwrite.c"
+
+$(IntermediateDirectory)/libpng_pngwtran$(ObjectSuffix): src/lib/libpng/pngwtran.c $(IntermediateDirectory)/libpng_pngwtran$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/libpng/pngwtran.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/libpng_pngwtran$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/libpng_pngwtran$(DependSuffix): src/lib/libpng/pngwtran.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libpng_pngwtran$(ObjectSuffix) -MF$(IntermediateDirectory)/libpng_pngwtran$(DependSuffix) -MM "./src/lib/libpng/pngwtran.c"
+
+$(IntermediateDirectory)/libpng_pngwtran$(PreprocessSuffix): src/lib/libpng/pngwtran.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libpng_pngwtran$(PreprocessSuffix) "./src/lib/libpng/pngwtran.c"
+
+$(IntermediateDirectory)/libpng_pngwutil$(ObjectSuffix): src/lib/libpng/pngwutil.c $(IntermediateDirectory)/libpng_pngwutil$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/libpng/pngwutil.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/libpng_pngwutil$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/libpng_pngwutil$(DependSuffix): src/lib/libpng/pngwutil.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/libpng_pngwutil$(ObjectSuffix) -MF$(IntermediateDirectory)/libpng_pngwutil$(DependSuffix) -MM "./src/lib/libpng/pngwutil.c"
+
+$(IntermediateDirectory)/libpng_pngwutil$(PreprocessSuffix): src/lib/libpng/pngwutil.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/libpng_pngwutil$(PreprocessSuffix) "./src/lib/libpng/pngwutil.c"
+
+$(IntermediateDirectory)/thr_pool_thr_pool$(ObjectSuffix): src/lib/thr_pool/thr_pool.c $(IntermediateDirectory)/thr_pool_thr_pool$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/thr_pool/thr_pool.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/thr_pool_thr_pool$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/thr_pool_thr_pool$(DependSuffix): src/lib/thr_pool/thr_pool.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/thr_pool_thr_pool$(ObjectSuffix) -MF$(IntermediateDirectory)/thr_pool_thr_pool$(DependSuffix) -MM "./src/lib/thr_pool/thr_pool.c"
+
+$(IntermediateDirectory)/thr_pool_thr_pool$(PreprocessSuffix): src/lib/thr_pool/thr_pool.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/thr_pool_thr_pool$(PreprocessSuffix) "./src/lib/thr_pool/thr_pool.c"
+
+$(IntermediateDirectory)/zlib_adler32$(ObjectSuffix): src/lib/zlib/adler32.c $(IntermediateDirectory)/zlib_adler32$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/zlib/adler32.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/zlib_adler32$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/zlib_adler32$(DependSuffix): src/lib/zlib/adler32.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/zlib_adler32$(ObjectSuffix) -MF$(IntermediateDirectory)/zlib_adler32$(DependSuffix) -MM "./src/lib/zlib/adler32.c"
+
+$(IntermediateDirectory)/zlib_adler32$(PreprocessSuffix): src/lib/zlib/adler32.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/zlib_adler32$(PreprocessSuffix) "./src/lib/zlib/adler32.c"
+
+$(IntermediateDirectory)/zlib_compress$(ObjectSuffix): src/lib/zlib/compress.c $(IntermediateDirectory)/zlib_compress$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/zlib/compress.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/zlib_compress$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/zlib_compress$(DependSuffix): src/lib/zlib/compress.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/zlib_compress$(ObjectSuffix) -MF$(IntermediateDirectory)/zlib_compress$(DependSuffix) -MM "./src/lib/zlib/compress.c"
+
+$(IntermediateDirectory)/zlib_compress$(PreprocessSuffix): src/lib/zlib/compress.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/zlib_compress$(PreprocessSuffix) "./src/lib/zlib/compress.c"
+
+$(IntermediateDirectory)/zlib_crc32$(ObjectSuffix): src/lib/zlib/crc32.c $(IntermediateDirectory)/zlib_crc32$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/zlib/crc32.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/zlib_crc32$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/zlib_crc32$(DependSuffix): src/lib/zlib/crc32.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/zlib_crc32$(ObjectSuffix) -MF$(IntermediateDirectory)/zlib_crc32$(DependSuffix) -MM "./src/lib/zlib/crc32.c"
+
+$(IntermediateDirectory)/zlib_crc32$(PreprocessSuffix): src/lib/zlib/crc32.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/zlib_crc32$(PreprocessSuffix) "./src/lib/zlib/crc32.c"
+
+$(IntermediateDirectory)/zlib_deflate$(ObjectSuffix): src/lib/zlib/deflate.c $(IntermediateDirectory)/zlib_deflate$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/zlib/deflate.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/zlib_deflate$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/zlib_deflate$(DependSuffix): src/lib/zlib/deflate.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/zlib_deflate$(ObjectSuffix) -MF$(IntermediateDirectory)/zlib_deflate$(DependSuffix) -MM "./src/lib/zlib/deflate.c"
+
+$(IntermediateDirectory)/zlib_deflate$(PreprocessSuffix): src/lib/zlib/deflate.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/zlib_deflate$(PreprocessSuffix) "./src/lib/zlib/deflate.c"
+
+$(IntermediateDirectory)/zlib_gzclose$(ObjectSuffix): src/lib/zlib/gzclose.c $(IntermediateDirectory)/zlib_gzclose$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/zlib/gzclose.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/zlib_gzclose$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/zlib_gzclose$(DependSuffix): src/lib/zlib/gzclose.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/zlib_gzclose$(ObjectSuffix) -MF$(IntermediateDirectory)/zlib_gzclose$(DependSuffix) -MM "./src/lib/zlib/gzclose.c"
+
+$(IntermediateDirectory)/zlib_gzclose$(PreprocessSuffix): src/lib/zlib/gzclose.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/zlib_gzclose$(PreprocessSuffix) "./src/lib/zlib/gzclose.c"
+
+$(IntermediateDirectory)/zlib_gzlib$(ObjectSuffix): src/lib/zlib/gzlib.c $(IntermediateDirectory)/zlib_gzlib$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/zlib/gzlib.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/zlib_gzlib$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/zlib_gzlib$(DependSuffix): src/lib/zlib/gzlib.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/zlib_gzlib$(ObjectSuffix) -MF$(IntermediateDirectory)/zlib_gzlib$(DependSuffix) -MM "./src/lib/zlib/gzlib.c"
+
+$(IntermediateDirectory)/zlib_gzlib$(PreprocessSuffix): src/lib/zlib/gzlib.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/zlib_gzlib$(PreprocessSuffix) "./src/lib/zlib/gzlib.c"
+
+$(IntermediateDirectory)/zlib_gzread$(ObjectSuffix): src/lib/zlib/gzread.c $(IntermediateDirectory)/zlib_gzread$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/zlib/gzread.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/zlib_gzread$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/zlib_gzread$(DependSuffix): src/lib/zlib/gzread.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/zlib_gzread$(ObjectSuffix) -MF$(IntermediateDirectory)/zlib_gzread$(DependSuffix) -MM "./src/lib/zlib/gzread.c"
+
+$(IntermediateDirectory)/zlib_gzread$(PreprocessSuffix): src/lib/zlib/gzread.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/zlib_gzread$(PreprocessSuffix) "./src/lib/zlib/gzread.c"
+
+$(IntermediateDirectory)/zlib_gzwrite$(ObjectSuffix): src/lib/zlib/gzwrite.c $(IntermediateDirectory)/zlib_gzwrite$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/zlib/gzwrite.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/zlib_gzwrite$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/zlib_gzwrite$(DependSuffix): src/lib/zlib/gzwrite.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/zlib_gzwrite$(ObjectSuffix) -MF$(IntermediateDirectory)/zlib_gzwrite$(DependSuffix) -MM "./src/lib/zlib/gzwrite.c"
+
+$(IntermediateDirectory)/zlib_gzwrite$(PreprocessSuffix): src/lib/zlib/gzwrite.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/zlib_gzwrite$(PreprocessSuffix) "./src/lib/zlib/gzwrite.c"
+
+$(IntermediateDirectory)/zlib_infback$(ObjectSuffix): src/lib/zlib/infback.c $(IntermediateDirectory)/zlib_infback$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/zlib/infback.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/zlib_infback$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/zlib_infback$(DependSuffix): src/lib/zlib/infback.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/zlib_infback$(ObjectSuffix) -MF$(IntermediateDirectory)/zlib_infback$(DependSuffix) -MM "./src/lib/zlib/infback.c"
+
+$(IntermediateDirectory)/zlib_infback$(PreprocessSuffix): src/lib/zlib/infback.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/zlib_infback$(PreprocessSuffix) "./src/lib/zlib/infback.c"
+
+$(IntermediateDirectory)/zlib_inffast$(ObjectSuffix): src/lib/zlib/inffast.c $(IntermediateDirectory)/zlib_inffast$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/zlib/inffast.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/zlib_inffast$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/zlib_inffast$(DependSuffix): src/lib/zlib/inffast.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/zlib_inffast$(ObjectSuffix) -MF$(IntermediateDirectory)/zlib_inffast$(DependSuffix) -MM "./src/lib/zlib/inffast.c"
+
+$(IntermediateDirectory)/zlib_inffast$(PreprocessSuffix): src/lib/zlib/inffast.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/zlib_inffast$(PreprocessSuffix) "./src/lib/zlib/inffast.c"
+
+$(IntermediateDirectory)/zlib_inflate$(ObjectSuffix): src/lib/zlib/inflate.c $(IntermediateDirectory)/zlib_inflate$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/zlib/inflate.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/zlib_inflate$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/zlib_inflate$(DependSuffix): src/lib/zlib/inflate.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/zlib_inflate$(ObjectSuffix) -MF$(IntermediateDirectory)/zlib_inflate$(DependSuffix) -MM "./src/lib/zlib/inflate.c"
+
+$(IntermediateDirectory)/zlib_inflate$(PreprocessSuffix): src/lib/zlib/inflate.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/zlib_inflate$(PreprocessSuffix) "./src/lib/zlib/inflate.c"
+
+$(IntermediateDirectory)/zlib_inftrees$(ObjectSuffix): src/lib/zlib/inftrees.c $(IntermediateDirectory)/zlib_inftrees$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/zlib/inftrees.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/zlib_inftrees$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/zlib_inftrees$(DependSuffix): src/lib/zlib/inftrees.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/zlib_inftrees$(ObjectSuffix) -MF$(IntermediateDirectory)/zlib_inftrees$(DependSuffix) -MM "./src/lib/zlib/inftrees.c"
+
+$(IntermediateDirectory)/zlib_inftrees$(PreprocessSuffix): src/lib/zlib/inftrees.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/zlib_inftrees$(PreprocessSuffix) "./src/lib/zlib/inftrees.c"
+
+$(IntermediateDirectory)/zlib_trees$(ObjectSuffix): src/lib/zlib/trees.c $(IntermediateDirectory)/zlib_trees$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/zlib/trees.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/zlib_trees$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/zlib_trees$(DependSuffix): src/lib/zlib/trees.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/zlib_trees$(ObjectSuffix) -MF$(IntermediateDirectory)/zlib_trees$(DependSuffix) -MM "./src/lib/zlib/trees.c"
+
+$(IntermediateDirectory)/zlib_trees$(PreprocessSuffix): src/lib/zlib/trees.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/zlib_trees$(PreprocessSuffix) "./src/lib/zlib/trees.c"
+
+$(IntermediateDirectory)/zlib_uncompr$(ObjectSuffix): src/lib/zlib/uncompr.c $(IntermediateDirectory)/zlib_uncompr$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/zlib/uncompr.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/zlib_uncompr$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/zlib_uncompr$(DependSuffix): src/lib/zlib/uncompr.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/zlib_uncompr$(ObjectSuffix) -MF$(IntermediateDirectory)/zlib_uncompr$(DependSuffix) -MM "./src/lib/zlib/uncompr.c"
+
+$(IntermediateDirectory)/zlib_uncompr$(PreprocessSuffix): src/lib/zlib/uncompr.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/zlib_uncompr$(PreprocessSuffix) "./src/lib/zlib/uncompr.c"
+
+$(IntermediateDirectory)/zlib_zutil$(ObjectSuffix): src/lib/zlib/zutil.c $(IntermediateDirectory)/zlib_zutil$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/zlib/zutil.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/zlib_zutil$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/zlib_zutil$(DependSuffix): src/lib/zlib/zutil.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/zlib_zutil$(ObjectSuffix) -MF$(IntermediateDirectory)/zlib_zutil$(DependSuffix) -MM "./src/lib/zlib/zutil.c"
+
+$(IntermediateDirectory)/zlib_zutil$(PreprocessSuffix): src/lib/zlib/zutil.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/zlib_zutil$(PreprocessSuffix) "./src/lib/zlib/zutil.c"
+
+$(IntermediateDirectory)/lib_my_rand$(ObjectSuffix): src/lib/my_rand.c $(IntermediateDirectory)/lib_my_rand$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/my_rand.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/lib_my_rand$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/lib_my_rand$(DependSuffix): src/lib/my_rand.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/lib_my_rand$(ObjectSuffix) -MF$(IntermediateDirectory)/lib_my_rand$(DependSuffix) -MM "./src/lib/my_rand.c"
+
+$(IntermediateDirectory)/lib_my_rand$(PreprocessSuffix): src/lib/my_rand.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/lib_my_rand$(PreprocessSuffix) "./src/lib/my_rand.c"
+
+$(IntermediateDirectory)/lib_png_writer$(ObjectSuffix): src/lib/png_writer.c $(IntermediateDirectory)/lib_png_writer$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/lib/png_writer.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/lib_png_writer$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/lib_png_writer$(DependSuffix): src/lib/png_writer.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/lib_png_writer$(ObjectSuffix) -MF$(IntermediateDirectory)/lib_png_writer$(DependSuffix) -MM "./src/lib/png_writer.c"
+
+$(IntermediateDirectory)/lib_png_writer$(PreprocessSuffix): src/lib/png_writer.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/lib_png_writer$(PreprocessSuffix) "./src/lib/png_writer.c"
+
+$(IntermediateDirectory)/A3P3_3d_position$(ObjectSuffix): src/A3P3/3d_position.c $(IntermediateDirectory)/A3P3_3d_position$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/A3P3/3d_position.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/A3P3_3d_position$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/A3P3_3d_position$(DependSuffix): src/A3P3/3d_position.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/A3P3_3d_position$(ObjectSuffix) -MF$(IntermediateDirectory)/A3P3_3d_position$(DependSuffix) -MM "./src/A3P3/3d_position.c"
+
+$(IntermediateDirectory)/A3P3_3d_position$(PreprocessSuffix): src/A3P3/3d_position.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/A3P3_3d_position$(PreprocessSuffix) "./src/A3P3/3d_position.c"
+
+$(IntermediateDirectory)/A3P3_3d_visual$(ObjectSuffix): src/A3P3/3d_visual.c $(IntermediateDirectory)/A3P3_3d_visual$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/A3P3/3d_visual.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/A3P3_3d_visual$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/A3P3_3d_visual$(DependSuffix): src/A3P3/3d_visual.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/A3P3_3d_visual$(ObjectSuffix) -MF$(IntermediateDirectory)/A3P3_3d_visual$(DependSuffix) -MM "./src/A3P3/3d_visual.c"
+
+$(IntermediateDirectory)/A3P3_3d_visual$(PreprocessSuffix): src/A3P3/3d_visual.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/A3P3_3d_visual$(PreprocessSuffix) "./src/A3P3/3d_visual.c"
+
+$(IntermediateDirectory)/A3P3_A3P3_main$(ObjectSuffix): src/A3P3/A3P3_main.c $(IntermediateDirectory)/A3P3_A3P3_main$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/A3P3/A3P3_main.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/A3P3_A3P3_main$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/A3P3_A3P3_main$(DependSuffix): src/A3P3/A3P3_main.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/A3P3_A3P3_main$(ObjectSuffix) -MF$(IntermediateDirectory)/A3P3_A3P3_main$(DependSuffix) -MM "./src/A3P3/A3P3_main.c"
+
+$(IntermediateDirectory)/A3P3_A3P3_main$(PreprocessSuffix): src/A3P3/A3P3_main.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/A3P3_A3P3_main$(PreprocessSuffix) "./src/A3P3/A3P3_main.c"
+
+$(IntermediateDirectory)/A3P3_octree$(ObjectSuffix): src/A3P3/octree.c $(IntermediateDirectory)/A3P3_octree$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/A3P3/octree.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/A3P3_octree$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/A3P3_octree$(DependSuffix): src/A3P3/octree.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/A3P3_octree$(ObjectSuffix) -MF$(IntermediateDirectory)/A3P3_octree$(DependSuffix) -MM "./src/A3P3/octree.c"
+
+$(IntermediateDirectory)/A3P3_octree$(PreprocessSuffix): src/A3P3/octree.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/A3P3_octree$(PreprocessSuffix) "./src/A3P3/octree.c"
+
+$(IntermediateDirectory)/A3P3_3d_motion$(ObjectSuffix): src/A3P3/3d_motion.c $(IntermediateDirectory)/A3P3_3d_motion$(DependSuffix)
+	$(C_CompilerName) $(SourceSwitch) "./src/A3P3/3d_motion.c" $(C_CmpOptions) $(ObjectSwitch)$(IntermediateDirectory)/A3P3_3d_motion$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/A3P3_3d_motion$(DependSuffix): src/A3P3/3d_motion.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/A3P3_3d_motion$(ObjectSuffix) -MF$(IntermediateDirectory)/A3P3_3d_motion$(DependSuffix) -MM "./src/A3P3/3d_motion.c"
+
+$(IntermediateDirectory)/A3P3_3d_motion$(PreprocessSuffix): src/A3P3/3d_motion.c
+	@$(C_CompilerName) $(C_CmpOptions) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/A3P3_3d_motion$(PreprocessSuffix) "./src/A3P3/3d_motion.c"
+
+
+-include $(IntermediateDirectory)/*$(DependSuffix)
+##
+## Clean
+##
+clean:
+	$(RM) $(IntermediateDirectory)/libpng_png$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_png$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_png$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngerror$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngerror$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngerror$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngget$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngget$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngget$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngmem$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngmem$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngmem$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngpread$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngpread$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngpread$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngread$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngread$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngread$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngrio$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngrio$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngrio$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngrtran$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngrtran$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngrtran$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngrutil$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngrutil$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngrutil$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngset$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngset$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngset$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngtrans$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngtrans$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngtrans$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngwio$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngwio$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngwio$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngwrite$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngwrite$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngwrite$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngwtran$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngwtran$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngwtran$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngwutil$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngwutil$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/libpng_pngwutil$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/thr_pool_thr_pool$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/thr_pool_thr_pool$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/thr_pool_thr_pool$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_adler32$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_adler32$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_adler32$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_compress$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_compress$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_compress$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_crc32$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_crc32$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_crc32$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_deflate$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_deflate$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_deflate$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_gzclose$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_gzclose$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_gzclose$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_gzlib$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_gzlib$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_gzlib$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_gzread$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_gzread$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_gzread$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_gzwrite$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_gzwrite$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_gzwrite$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_infback$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_infback$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_infback$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_inffast$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_inffast$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_inffast$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_inflate$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_inflate$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_inflate$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_inftrees$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_inftrees$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_inftrees$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_trees$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_trees$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_trees$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_uncompr$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_uncompr$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_uncompr$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_zutil$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_zutil$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/zlib_zutil$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/lib_my_rand$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/lib_my_rand$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/lib_my_rand$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/lib_png_writer$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/lib_png_writer$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/lib_png_writer$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/A3P3_3d_position$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/A3P3_3d_position$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/A3P3_3d_position$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/A3P3_3d_visual$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/A3P3_3d_visual$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/A3P3_3d_visual$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/A3P3_A3P3_main$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/A3P3_A3P3_main$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/A3P3_A3P3_main$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/A3P3_octree$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/A3P3_octree$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/A3P3_octree$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/A3P3_3d_motion$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/A3P3_3d_motion$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/A3P3_3d_motion$(PreprocessSuffix)
+	$(RM) $(OutputFile)
+	$(RM) $(OutputFile).exe
+	$(RM) "D:\Work\University\Year 4\NE 451 Simulation Methods\Assignments\Assignment 3\.build-release\A3P3"
+
+
