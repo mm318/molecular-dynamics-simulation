@@ -19,6 +19,11 @@ add_executable(${PROJECT_NAME}
     ${SOURCES}
 )
 
+add_dependencies(${PROJECT_NAME}
+    thr_pool
+    libpng
+)
+
 target_include_directories(${PROJECT_NAME} BEFORE
     PRIVATE "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_INCLUDEDIR}"
             "${CMAKE_SOURCE_DIR}/src"

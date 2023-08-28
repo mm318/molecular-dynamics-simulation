@@ -24,7 +24,7 @@ ExternalProject_Add(libpng
 )
 
 ExternalProject_Add(thr_pool
-    SOURCE_DIR "${CMAKE_SOURCE_DIR}/external_libs/thr_pool"
+    URL "${CMAKE_SOURCE_DIR}/external_libs/thr_pool.tar.bz2"
     CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}"
 )
 
